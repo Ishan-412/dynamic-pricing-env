@@ -15,7 +15,12 @@ def root():
 @app.post("/reset")
 def reset():
     obs = env.reset()
-    return obs.dict()
+    return {
+        "observation": obs.dict(),
+        "reward": None,
+        "done": False,
+        "info": {}
+    }
 
 
 @app.post("/step")
