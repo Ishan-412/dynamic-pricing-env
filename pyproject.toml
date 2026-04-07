@@ -1,0 +1,14 @@
+[project]
+name = "dynamic-pricing-env"
+version = "0.1.0"
+description = "Dynamic pricing OpenEnv environment"
+authors = [{name = "Ishan"}]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
