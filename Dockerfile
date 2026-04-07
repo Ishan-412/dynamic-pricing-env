@@ -8,4 +8,4 @@ ENV PYTHONPATH=/app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "scripts/inference.py"]
+CMD ["python", "inference.py"]
