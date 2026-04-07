@@ -7,6 +7,11 @@ app = FastAPI()
 env = DynamicPricingEnv(task_name="easy")
 
 
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
+
 @app.post("/reset")
 def reset():
     obs = env.reset()
@@ -15,12 +20,12 @@ def reset():
 
 @app.post("/step")
 def step(action: Action):
-    obs, reward, done, _ = env.step(action)
+    obs, reward, done, info = env.step(action)
     return {
         "observation": obs.dict(),
         "reward": reward.dict(),
         "done": done,
-        "info": {},
+        "info": info,   
     }
 
 
