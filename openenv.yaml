@@ -1,0 +1,12 @@
+name: dynamic-pricing-env
+version: 1.0
+entrypoint: env.environment:DynamicPricingEnv
+
+observation_space: Observation
+action_space: Action
+reward_space: Reward
+
+tasks:
+  - easy
+  - medium
+  - hard
