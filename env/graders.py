@@ -1,4 +1,13 @@
+
 from configs.settings import MAX_INVENTORY
+
+def _clip01(x, eps=1e-6):
+    # strictly within (0,1)
+    if x <= 0.0:
+        return eps
+    if x >= 1.0:
+        return 1.0 - eps
+    return float(x)
 
 
 def grade_easy(state):
@@ -8,10 +17,8 @@ def grade_easy(state):
     sold = MAX_INVENTORY - state["inventory"]
 
     score = sold / MAX_INVENTORY
-
-    epsilon = 1e-6
-    score = max(epsilon, min(score, 1 - epsilon))
-    return float(score)
+    score = _clip01(score)
+    return score
 
 
 def grade_medium(state):
@@ -21,15 +28,12 @@ def grade_medium(state):
     sold = MAX_INVENTORY - state["inventory"]
     revenue = state["total_revenue"]
 
-    
-    sales_score = sold / MAX_INVENTORY
-    revenue_score = min(revenue / 1000, 1.0)
+    sales_score = _clip01(sold / MAX_INVENTORY)
+    revenue_score = _clip01(revenue / 1000.0)
 
     score = 0.5 * sales_score + 0.5 * revenue_score
-
-    epsilon = 1e-6
-    score = max(epsilon, min(score, 1 - epsilon))
-    return float(score)
+    score = _clip01(score)
+    return score
 
 
 def grade_hard(state):
@@ -38,10 +42,8 @@ def grade_hard(state):
     """
     revenue = state["total_revenue"]
 
-    score = min(revenue / 1500, 1.0)
-    epsilon = 1e-6
-    score = max(epsilon, min(score, 1 - epsilon))
-    return float(score)
+    score = _clip01(revenue / 1500.0)
+    return score
 
 
 def grade_task(task_name, state):
