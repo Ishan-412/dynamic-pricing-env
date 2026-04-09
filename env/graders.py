@@ -9,11 +9,9 @@ def grade_easy(state):
 
     score = sold / MAX_INVENTORY
 
-    score = max(0.01, min(score, 0.999))
-    score = round(score, 4)
-    if score >= 1.0:
-        score = 0.9999
-    return score
+    epsilon = 1e-6
+    score = max(epsilon, min(score, 1 - epsilon))
+    return float(score)
 
 
 def grade_medium(state):
@@ -29,11 +27,9 @@ def grade_medium(state):
 
     score = 0.5 * sales_score + 0.5 * revenue_score
 
-    score = max(0.01, min(score, 0.999))
-    score = round(score, 4)
-    if score >= 1.0:
-        score = 0.9999
-    return score
+    epsilon = 1e-6
+    score = max(epsilon, min(score, 1 - epsilon))
+    return float(score)
 
 
 def grade_hard(state):
@@ -43,11 +39,9 @@ def grade_hard(state):
     revenue = state["total_revenue"]
 
     score = min(revenue / 1500, 1.0)
-    score = max(0.01, min(score, 0.999))
-    score = round(score, 4)
-    if score >= 1.0:
-        score = 0.9999
-    return score
+    epsilon = 1e-6
+    score = max(epsilon, min(score, 1 - epsilon))
+    return float(score)
 
 
 def grade_task(task_name, state):
