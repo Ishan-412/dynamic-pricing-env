@@ -1,4 +1,3 @@
-
 from configs.settings import MAX_INVENTORY
 
 # Numerical stability helpers
@@ -76,13 +75,19 @@ def grade_hard(state):
 
 def grade_task(task_name, state):
     if task_name == "easy":
-        return grade_easy(state)
-
+        score = grade_easy(state)
     elif task_name == "medium":
-        return grade_medium(state)
-
+        score = grade_medium(state)
     elif task_name == "hard":
-        return grade_hard(state)
-
+        score = grade_hard(state)
     else:
         raise ValueError("Unknown task")
+
+    # FINAL SAFETY CLAMP (guaranteed fix)
+    EPS = 1e-6
+    if score <= 0.0:
+        score = EPS
+    elif score >= 1.0:
+        score = 1.0 - EPS
+
+    return float(score)
